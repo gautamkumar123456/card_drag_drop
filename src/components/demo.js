@@ -12,17 +12,19 @@ const reorder = (list, startIndex, endIndex) => {
   if (startIndex.droppableId === endIndex.droppableId && startIndex.index === endIndex.index) {
     return list;
   }
-  if (startIndex.droppableId === endIndex.droppableId && startIndex.index !== endIndex.index) {
-    const [my_card]=source_list.splice(startIndex.index, 1);
+  else if (startIndex.droppableId === endIndex.droppableId && startIndex.index !== endIndex.index) {
+    const [my_card] = source_list.splice(startIndex.index, 1);
     source_list.splice(endIndex.index, 0, my_card);
     list[startIndex.droppableId]['card_data'] = source_list
     return list;
   }
-  destination_list.splice(endIndex.index, 0, list[startIndex.droppableId]['card_data'][startIndex.index]);
-  source_list.splice(startIndex.index, 1);
-  list[startIndex.droppableId]['card_data'] = source_list
-  list[endIndex.droppableId]['card_data'] = destination_list
-  return list;
+  else {
+    destination_list.splice(endIndex.index, 0, list[startIndex.droppableId]['card_data'][startIndex.index]);
+    source_list.splice(startIndex.index, 1);
+    list[startIndex.droppableId]['card_data'] = source_list
+    list[endIndex.droppableId]['card_data'] = destination_list
+    return list;
+  }
 };
 
 
@@ -119,11 +121,11 @@ function DemoFirst() {
                       <div className="col-4" {...provided.droppableProps} ref={provided.innerRef}>
                         {
                           values.card_data.map((data, index) => {
-                            // console.log(data,'klkl',index)
+                            console.log(data,'klkl',index)
                             return (
                               <Draggable key={data.id} draggableId={data.id.toString()} index={index}>
                                 {(provided) => (
-                                  <Card provided={provided} title={data.title} subtitle={data.subtitle} description={data.description} dataid={data.id} />
+                                  <Card provided={provided} title={data.title} subtitle={data.subtitle} description={data.description} dataid={data.id} columnname={data.columnname} />
                                 )}
                               </Draggable>
                             );

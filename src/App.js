@@ -1,10 +1,19 @@
-import { DemoFirst} from './components/demo';
+import { DemoFirst } from './components/demo';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import UpdateCard from './components/board_card/update_card';
+
 
 function App() {
   return (
     <div>
-      <h1 className='text-center'>Welcome!!!!!!!</h1>
-      <DemoFirst/>
+      <Router>
+        <Routes>
+          <Route path='/' element={<DemoFirst />}/>
+        </Routes>
+        <Routes>
+          <Route path='/update' element={<UpdateCard/>}/>
+        </Routes>
+      </Router>
     </div>
   );
 }
